@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import Projects from "./components/Projects";
-import Skills from "./components/Skills";
-import Contact from "./components/Contact";
-import Footer from "./components/Footer";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layouts from "./components/Layouts/Layouts";
+
+import Home from "./components/Home/Home";
+import ProjectsPage from "./pages/Projects/ProjectPages";
+
 import "./index.css";
 
 function App() {
@@ -16,18 +16,20 @@ function App() {
       });
     }, observerOptions);
 
-    document.querySelectorAll(".fade-in").forEach((el) => observer.observe(el));
+    document.querySelectorAll(".fade-in").forEach((el) =>
+      observer.observe(el)
+    );
   }, []);
 
   return (
-    <>
-      <Navbar />
-      <Hero />
-      <Projects />
-      <Skills />
-      <Contact />
-      <Footer />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Layouts />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/projects" element={<ProjectsPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
