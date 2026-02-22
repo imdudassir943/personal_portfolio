@@ -24,3 +24,13 @@ dist-ssr
 *.sw?
 
 backend/.env
+
+# Python / Django
+__pycache__/
+*.py[cod]
+*.sqlite3
+backend/db.sqlite3
+backend/media/
+backend/staticfiles/
+venv/
+*.egg-info/
