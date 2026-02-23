@@ -2,10 +2,14 @@ import { Outlet, useNavigation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
+import { usePageMeta } from '@/hooks/usePageMeta';
 
 export function RootLayout() {
   const navigation = useNavigation();
   const isLoading = navigation.state === 'loading';
+
+  // Scroll to top & update page title on every route change
+  usePageMeta();
 
   return (
     <div className="min-h-screen flex flex-col">
