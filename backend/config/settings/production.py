@@ -5,6 +5,7 @@ Intended for Railway, Render, or any VPS deployment.
 
 import dj_database_url
 from .base import *  # noqa: F401,F403
+import os
 
 DEBUG = False
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
@@ -12,7 +13,7 @@ ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
 # ── Database (PostgreSQL via DATABASE_URL) ──────────────
 DATABASES = {
     'default': dj_database_url.config(
-        default=env('DATABASE_URL', default=''),
+        default=os.environ.get('DATABASE_URL', default=''),
         conn_max_age=600,
         ssl_require=True,
     )
