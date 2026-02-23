@@ -33,7 +33,7 @@ export function Navbar() {
             to="/"
             className="font-playfair text-2xl font-black text-navy tracking-tight hover:text-teal transition-colors"
           >
-            Portfolio.
+            Mudassir Sharif.
           </Link>
 
           {/* Desktop Navigation */}
