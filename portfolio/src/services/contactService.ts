@@ -1,51 +1,44 @@
-import type { ContactFormData, ContactFormState } from '@/types';
+import { api, ApiError } from './api';
+import type { ContactFormData, ContactFormState, ContactApiResponse } from '@/types';
 
 // ============================================
-// CONTACT SERVICE - Service Layer Pattern
+// CONTACT SERVICE — Real API Integration
 // ============================================
-
-const CONTACT_API_URL = '/api/contact'; // Replace with actual endpoint
 
 export const contactService = {
   /**
-   * Submits the contact form data
-   * In production, this would send to a backend API
+   * Submits the contact form data to the backend.
+   * POST /api/contact/
    */
   async submitContactForm(data: ContactFormData): Promise<ContactFormState> {
-    // Simulate API call with delay
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const response = await api.post<ContactApiResponse>('/contact/', data);
 
-    // Validate data
-    if (!data.name || !data.email || !data.message) {
+      return {
+        status: 'success',
+        message: response.message || "Thank you for your message! I'll get back to you soon.",
+      };
+    } catch (error) {
+      if (error instanceof ApiError) {
+        // Surface first validation error if present
+        if (error.errors) {
+          const keys = Object.keys(error.errors);
+          if (keys.length > 0) {
+            const firstField = keys[0]!;
+            const firstError = error.errors[firstField]?.[0];
+            if (firstError) {
+              return { status: 'error', message: `${firstField}: ${firstError}` };
+            }
+          }
+        }
+        return { status: 'error', message: error.message };
+      }
+
       return {
         status: 'error',
-        message: 'Please fill in all required fields.',
+        message: 'Network error. Please check your connection and try again.',
       };
     }
-
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(data.email)) {
-      return {
-        status: 'error',
-        message: 'Please enter a valid email address.',
-      };
-    }
-
-    // In production, make actual API call:
-    // const response = await fetch(CONTACT_API_URL, {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(data),
-    // });
-
-    // Simulate successful submission
-    console.log('Contact form submitted:', data, 'API URL:', CONTACT_API_URL);
-    
-    return {
-      status: 'success',
-      message: "Thank you for your message! I'll get back to you soon.",
-    };
   },
 
   /**

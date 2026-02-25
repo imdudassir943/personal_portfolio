@@ -22,10 +22,17 @@ export function ProjectCard({ project, index, showFullDetails = false }: Project
       <Card variant="elevated" className="group cursor-pointer h-full">
         {/* Gradient Image Area */}
         <div className={`${project.gradient} h-48 md:h-56 relative overflow-hidden`}>
+          {project.image_url && (
+            <img
+              src={project.image_url}
+              alt={project.title}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          )}
           <div className="absolute inset-0 bg-navy/0 group-hover:bg-navy/80 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-all duration-300">
-            {project.liveUrl && (
+            {project.live_url && (
               <a
-                href={project.liveUrl}
+                href={project.live_url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-4 py-2 bg-teal text-white text-sm font-bold rounded-full hover:bg-white hover:text-navy transition-colors"
@@ -33,9 +40,9 @@ export function ProjectCard({ project, index, showFullDetails = false }: Project
                 Live Demo
               </a>
             )}
-            {project.githubUrl && (
+            {project.github_url && (
               <a
-                href={project.githubUrl}
+                href={project.github_url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-4 py-2 bg-white/20 text-white text-sm font-bold rounded-full hover:bg-white hover:text-navy transition-colors"

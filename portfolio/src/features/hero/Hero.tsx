@@ -2,9 +2,22 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui';
 import { GeometricBackground } from './GeometricBackground';
+import { useApi } from '@/hooks/useApi';
+import { settingsService } from '@/services/settingsService';
 import ProfileImage from "@/assets/profile.jpg"
 
 export function Hero() {
+  const { data: settings } = useApi(() => settingsService.getSiteSettings());
+
+  const tagline = settings?.tagline ?? 'Creative Developer';
+  const heading = settings?.hero_heading ?? 'Crafting Digital Experiences';
+  const subheading =
+    settings?.hero_subheading ??
+    'I transform ideas into elegant, functional, and memorable digital solutions that make an impact. With a focus on performance, accessibility, and beautiful design.';
+  const yearsExp = settings?.years_experience ?? 5;
+  const projectsCount = settings?.projects_completed ?? 50;
+  const clientsCount = settings?.happy_clients ?? 30;
+
   return (
     <section className="relative min-h-screen flex items-center px-6 lg:px-10 pt-20 overflow-hidden bg-cream">
       <GeometricBackground />
@@ -18,7 +31,7 @@ export function Hero() {
             transition={{ duration: 0.6 }}
             className="text-teal font-bold uppercase tracking-[0.2em] mb-6 text-sm"
           >
-            Creative Developer
+            {tagline}
           </motion.div>
 
           <motion.h1
@@ -27,8 +40,14 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="font-playfair text-5xl md:text-6xl lg:text-7xl xl:text-[5.5rem] font-black mb-8 text-navy leading-[1.1]"
           >
-            Crafting Digital{' '}
-            <span className="block text-teal">Experiences</span>
+            {heading.includes(' ') ? (
+              <>
+                {heading.split(' ').slice(0, -1).join(' ')}{' '}
+                <span className="block text-teal">{heading.split(' ').slice(-1)[0]}</span>
+              </>
+            ) : (
+              heading
+            )}
           </motion.h1>
 
           <motion.p
@@ -37,9 +56,7 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-lg md:text-xl text-sage mb-10 leading-relaxed"
           >
-            I transform ideas into elegant, functional, and memorable digital
-            solutions that make an impact. With a focus on performance,
-            accessibility, and beautiful design.
+            {subheading}
           </motion.p>
 
           <motion.div
@@ -66,9 +83,9 @@ export function Hero() {
             className="flex gap-12 mt-16 pt-8 border-t border-sage/30"
           >
             {[
-              { value: '5+', label: 'Years Experience' },
-              { value: '50+', label: 'Projects Completed' },
-              { value: '30+', label: 'Happy Clients' },
+              { value: `${yearsExp}+`, label: 'Years Experience' },
+              { value: `${projectsCount}+`, label: 'Projects Completed' },
+              { value: `${clientsCount}+`, label: 'Happy Clients' },
             ].map((stat, index) => (
               <div key={index}>
                 <div className="font-playfair text-3xl font-black text-teal">

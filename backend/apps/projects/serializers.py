@@ -28,11 +28,21 @@ class ProjectListSerializer(serializers.ModelSerializer):
         ]
 
     def get_image_url(self, obj):
+        request = self.context.get('request')
+
+        # 1. Use featured_image if available
         if obj.featured_image:
-            request = self.context.get('request')
             if request:
                 return request.build_absolute_uri(obj.featured_image.url)
             return obj.featured_image.url
+
+        # 2. Fall back to first gallery image
+        first_image = obj.images.order_by('sort_order').first()
+        if first_image and first_image.image:
+            if request:
+                return request.build_absolute_uri(first_image.image.url)
+            return first_image.image.url
+
         return None
 
 

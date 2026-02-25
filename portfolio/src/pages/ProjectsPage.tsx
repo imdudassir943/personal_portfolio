@@ -1,7 +1,14 @@
 import { motion } from 'framer-motion';
-import { ProjectCard, projectsData } from '@/features/projects';
+import { ProjectCard } from '@/features/projects';
+import { projectsData } from '@/features/projects/projectsData';
+import { useApi } from '@/hooks/useApi';
+import { projectsService } from '@/services/projectsService';
 
 export function ProjectsPage() {
+  const { data, isLoading } = useApi(() => projectsService.getProjects());
+
+  // Use API data if available, fall back to static data
+  const projects = data?.results ?? projectsData;
   return (
     <div className="pt-20">
       {/* Page Header */}
@@ -38,16 +45,27 @@ export function ProjectsPage() {
       {/* Projects Grid */}
       <section className="py-16 px-6 lg:px-10 bg-white">
         <div className="max-w-7xl mx-auto">
-          <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-            {projectsData.map((project, index) => (
-              <ProjectCard
-                key={project.id}
-                project={project}
-                index={index}
-                showFullDetails
-              />
-            ))}
-          </div>
+          {isLoading ? (
+            <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div
+                  key={i}
+                  className="h-72 bg-cream animate-pulse rounded-2xl"
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+              {projects.map((project, index) => (
+                <ProjectCard
+                  key={project.id}
+                  project={project}
+                  index={index}
+                  showFullDetails
+                />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

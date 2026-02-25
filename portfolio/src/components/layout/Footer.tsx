@@ -1,13 +1,17 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import type { SocialLink, NavItem } from '@/types';
+import type { NavItem } from '@/types';
+import { useApi } from '@/hooks/useApi';
+import { settingsService } from '@/services/settingsService';
 
-const socialLinks: SocialLink[] = [
-  { icon: '→', label: 'GitHub', href: 'https://github.com' },
-  { icon: 'in', label: 'LinkedIn', href: 'https://linkedin.com' },
-  { icon: '𝕏', label: 'Twitter', href: 'https://twitter.com' },
-  { icon: '●', label: 'Dribbble', href: 'https://dribbble.com' },
-];
+// Icon mapping for social platforms
+const platformIcons: Record<string, string> = {
+  github: '→',
+  linkedin: 'in',
+  whatsapp: '✆',
+  instagram: '◎',
+  other: '●',
+};
 
 const footerNavItems: NavItem[] = [
   { label: 'Home', path: '/' },
@@ -18,6 +22,17 @@ const footerNavItems: NavItem[] = [
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
+  const { data: socialLinksApi } = useApi(() => settingsService.getSocialLinks());
+
+  // Map API social links to renderable format
+  const socialLinks = socialLinksApi?.map((link) => ({
+    icon: link.icon_class || platformIcons[link.platform] || '●',
+    label: link.label,
+    href: link.url,
+  })) ?? [
+    { icon: '→', label: 'GitHub', href: 'https://github.com' },
+    { icon: 'in', label: 'LinkedIn', href: 'https://linkedin.com' },
+  ];
 
   return (
     <footer className="bg-navy text-white py-16 px-6 lg:px-10">

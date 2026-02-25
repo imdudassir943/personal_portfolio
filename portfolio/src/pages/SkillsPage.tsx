@@ -1,5 +1,8 @@
 import { motion } from 'framer-motion';
-import { SkillCard, skillsData } from '@/features/skills';
+import { SkillCard } from '@/features/skills';
+import { skillsData } from '@/features/skills/skillsData';
+import { useApi } from '@/hooks/useApi';
+import { skillsService } from '@/services/skillsService';
 
 const experienceItems = [
   {
@@ -23,6 +26,11 @@ const experienceItems = [
 ];
 
 export function SkillsPage() {
+  const { data, isLoading } = useApi(() => skillsService.getSkills());
+
+  // Use API data if available, fall back to static data
+  const skills = data ?? skillsData;
+
   return (
     <div className="pt-20">
       {/* Page Header */}
@@ -67,11 +75,22 @@ export function SkillsPage() {
           >
             Technical Skills
           </motion.h2>
-          <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-            {skillsData.map((skill, index) => (
-              <SkillCard key={skill.title} skill={skill} index={index} />
-            ))}
-          </div>
+          {isLoading ? (
+            <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+              {[1, 2, 3, 4].map((i) => (
+                <div
+                  key={i}
+                  className="h-64 bg-white/5 animate-pulse rounded-2xl"
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+              {skills.map((skill, index) => (
+                <SkillCard key={skill.title} skill={skill} index={index} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
