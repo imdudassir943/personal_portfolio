@@ -6,7 +6,7 @@ class SkillCategory(TimeStampedModel):
     """A category of skills (Frontend, Backend, Design, DevOps)."""
     icon = models.CharField(max_length=10, help_text='Emoji icon, e.g. 💻')
     title = models.CharField(max_length=50)
-    description = models.CharField(max_length=200)
+    description = models.CharField(max_length=500)
     sort_order = models.PositiveIntegerField(default=0)
 
     class Meta:

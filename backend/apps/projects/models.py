@@ -74,7 +74,7 @@ class ProjectImage(TimeStampedModel):
     """Additional screenshots/images for a project."""
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(upload_to='projects/gallery/')
-    caption = models.CharField(max_length=200, blank=True)
+    caption = models.CharField(max_length=500, blank=True)
     sort_order = models.PositiveIntegerField(default=0)
 
     class Meta:
