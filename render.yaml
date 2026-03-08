@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: personal-portfolio
+    runtime: python
+    rootDir: backend
+    buildCommand: chmod +x build.sh && ./build.sh
+    startCommand: gunicorn config.wsgi --bind 0.0.0.0:$PORT --workers 3
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: config.settings.production
+      - key: PYTHON_VERSION
+        value: 3.12.8
