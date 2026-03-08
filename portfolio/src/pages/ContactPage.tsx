@@ -5,20 +5,20 @@ const contactInfo = [
   {
     icon: '📧',
     title: 'Email',
-    value: 'hello@portfolio.com',
+    value: 'muhammadmudassirpk943@gmail.com',
     href: 'mailto:hello@portfolio.com',
   },
   {
     icon: '📍',
     title: 'Location',
-    value: 'San Francisco, CA',
+    value: 'Johar Town, Lahore ',
     href: null,
   },
   {
     icon: '🌐',
     title: 'Website',
-    value: 'www.portfolio.com',
-    href: 'https://portfolio.com',
+    value: 'www.mudassir-dev.tech',
+    href: 'https://mudassir-dev.tech/',
   },
 ];
 
