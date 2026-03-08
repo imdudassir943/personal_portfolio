@@ -17,6 +17,7 @@ export function Hero() {
   const yearsExp = settings?.years_experience ?? 5;
   const projectsCount = settings?.projects_completed ?? 50;
   const clientsCount = settings?.happy_clients ?? 30;
+  const profileSrc = settings?.profile_image || ProfileImage;
 
   return (
     <section className="relative min-h-screen flex items-center px-6 lg:px-10 pt-20 overflow-hidden bg-cream">
@@ -106,9 +107,11 @@ export function Hero() {
         >
           <div className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-teal shadow-2xl relative z-10">
             <div className="w-full h-full bg-gradient-to-br from-teal via-mint to-sage flex items-center justify-center">
-              <span className="text-6xl">
-                <img src={ProfileImage} alt="profile" />
-              </span>
+              <img
+                src={profileSrc}
+                alt="profile"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
           {/* Decorative ring */}
