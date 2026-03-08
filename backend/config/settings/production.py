@@ -10,6 +10,11 @@ import os
 DEBUG = False
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
 
+# ── CSRF Trusted Origins (required for admin over HTTPS) ─
+CSRF_TRUSTED_ORIGINS = [
+    f'https://{host.strip()}' for host in ALLOWED_HOSTS if host.strip()
+]
+
 # ── Database (PostgreSQL via DATABASE_URL) ──────────────
 DATABASES = {
     'default': dj_database_url.config(
