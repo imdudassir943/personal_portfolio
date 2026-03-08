@@ -40,9 +40,14 @@ CORS_ALLOWED_ORIGINS = [
     for origin in os.environ.get('CORS_ALLOWED_ORIGINS', '').split(',')
     if origin.strip()
 ]
-# If no CORS origins are configured, allow all (safe for public read-only API)
+# Default production origins (Vercel frontend)
 if not CORS_ALLOWED_ORIGINS:
-    CORS_ALLOW_ALL_ORIGINS = True
+    CORS_ALLOWED_ORIGINS = [
+        'https://mudassir-dev.tech',
+        'https://www.mudassir-dev.tech',
+        'https://personal-portfolio-alpha-olive-63.vercel.app',
+    ]
+CORS_ALLOW_ALL_ORIGINS = False
 
 # ── Cloudinary (production media storage) ───────────────
 STORAGES = {
