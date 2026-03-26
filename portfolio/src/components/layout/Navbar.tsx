@@ -31,9 +31,16 @@ export function Navbar() {
           {/* Logo */}
           <Link
             to="/"
-            className="font-playfair text-2xl font-black text-navy tracking-tight hover:text-teal transition-colors"
+            className="group flex items-center gap-3"
           >
-            imudassir-sharif.dev
+            <img
+              src="/logo.png"
+              alt="Mudassir logo"
+              className="h-10 w-10 rounded-full object-cover border-2 border-teal/30 group-hover:border-teal transition-colors"
+            />
+            <span className="font-playfair text-2xl font-black text-navy tracking-tight group-hover:text-teal transition-colors">
+              imudassir-sharif.dev
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
