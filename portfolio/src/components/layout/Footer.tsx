@@ -100,8 +100,11 @@ export function Footer() {
             © {currentYear} Portfolio. All rights reserved.
           </p>
           <p className="text-sage text-sm">
+            imudassirpk123@gmail.com
+          </p>
+          <p className="text-sage text-sm">
             Designed & Built with{' '}
-            <span className="text-teal">♥</span> using React & Tailwind
+            <span className="text-teal">♥</span> using React & Django (DRF)
           </p>
         </div>
       </div>
