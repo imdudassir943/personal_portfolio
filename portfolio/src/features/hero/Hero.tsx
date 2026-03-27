@@ -4,7 +4,7 @@ import { Button } from '@/components/ui';
 import { GeometricBackground } from './GeometricBackground';
 import { useApi } from '@/hooks/useApi';
 import { settingsService } from '@/services/settingsService';
-import ProfileImage from "@/assets/profile.jpg"
+import ProfileImage from "@/assets/profile.png"
 
 export function Hero() {
   const { data: settings } = useApi(() => settingsService.getSiteSettings());
