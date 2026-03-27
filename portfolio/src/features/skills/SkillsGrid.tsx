@@ -25,18 +25,20 @@ export function SkillsGrid({ showViewAllButton = true }: SkillsGridProps) {
         />
 
         {isLoading ? (
-          <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-            {[1, 2, 3, 4].map((i) => (
+          <div className="flex flex-wrap justify-center gap-6 p-4">
+            {(showViewAllButton ? [1, 2, 3] : [1, 2, 3, 4]).map((i) => (
               <div
                 key={i}
-                className="h-64 bg-white/5 animate-pulse rounded-2xl"
+                className="w-full sm:w-[300px] lg:w-[320px] h-64 bg-white/5 animate-pulse rounded-2xl"
               />
             ))}
           </div>
         ) : (
-          <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-            {skills.map((skill, index) => (
-              <SkillCard key={skill.title} skill={skill} index={index} />
+          <div className="flex flex-wrap justify-center gap-6 p-4">
+            {(showViewAllButton ? skills.slice(0, 3) : skills).map((skill, index) => (
+              <div key={skill.title} className="w-full sm:w-[300px] lg:w-[320px]">
+                <SkillCard skill={skill} index={index} />
+              </div>
             ))}
           </div>
         )}

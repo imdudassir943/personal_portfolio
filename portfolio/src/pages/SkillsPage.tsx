@@ -76,18 +76,20 @@ export function SkillsPage() {
             Technical Skills
           </motion.h2>
           {isLoading ? (
-            <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-              {[1, 2, 3, 4].map((i) => (
+            <div className="flex flex-wrap justify-center gap-6 p-4">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
                 <div
                   key={i}
-                  className="h-64 bg-white/5 animate-pulse rounded-2xl"
+                  className="w-full sm:w-[300px] lg:w-[320px] h-64 bg-white/5 animate-pulse rounded-2xl"
                 />
               ))}
             </div>
           ) : (
-            <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+            <div className="flex flex-wrap justify-center gap-6 p-4">
               {skills.map((skill, index) => (
-                <SkillCard key={skill.title} skill={skill} index={index} />
+                <div key={`${skill.title}-${index}`} className="w-full sm:w-[300px] lg:w-[320px]">
+                  <SkillCard skill={skill} index={index} />
+                </div>
               ))}
             </div>
           )}
