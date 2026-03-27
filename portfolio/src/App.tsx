@@ -18,6 +18,9 @@ const SkillsPage = lazy(() =>
 const ContactPage = lazy(() =>
   import('@/pages/ContactPage').then((m) => ({ default: m.ContactPage }))
 );
+const NotFoundPage = lazy(() =>
+  import('@/pages/NotFoundPage').then((m) => ({ default: m.NotFoundPage }))
+);
 
 // Loading fallback component
 function PageLoader() {
@@ -66,6 +69,14 @@ const router = createBrowserRouter([
         element: (
           <Suspense fallback={<PageLoader />}>
             <ContactPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: '*',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <NotFoundPage />
           </Suspense>
         ),
       },
